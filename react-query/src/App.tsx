@@ -1,15 +1,12 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.css";
-import MainComponent from "./MainComponent";
+import { usePost } from "./hooks/use-post";
 
 function App() {
-  const queryCllient = new QueryClient();
+  const { data, isLoading, isError } = usePost(1);
 
-  return (
-    <QueryClientProvider client={queryCllient}>
-      <MainComponent />
-    </QueryClientProvider>
-  );
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error...</div>;
+  return <div>{JSON.stringify(data)}</div>;
 }
 
 export default App;
