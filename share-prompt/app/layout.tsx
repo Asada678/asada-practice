@@ -1,4 +1,7 @@
 import { FC } from "react";
+
+import Nav from "@components/Nav";
+
 import "@styles/globals.css";
 
 export const metadata = {
@@ -17,7 +20,10 @@ const RootLayout: FC<layoutProps> = ({ children }) => {
         <div className="main">
           <div className="gradient"></div>
         </div>
-        <main className="app">{children}</main>
+        <main className="app">
+          <Nav />
+          {children}
+        </main>
       </body>
     </html>
   );
