@@ -11,21 +11,22 @@ import { getProviders, signIn, signOut, useSession } from "next-auth/react";
 interface NavProps {}
 
 const Nav: FC<NavProps> = ({}) => {
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
 
   const [providers, setProviders] = useState(null);
 
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-  // useEffect(() => {
-  //   const setProvider = async () => {
-  //     const response = await getProviders();
+  useEffect(() => {
+    console.log("useEffect:");
+    const setUpProviders = async () => {
+      const response = await getProviders();
 
-  //     setProviders(response);
-  //   };
+      setProviders(response);
+    };
 
-  //   setProvider();
-  // }, []);
+    setUpProviders();
+  }, []);
   return (
     <nav className="flex-between mb-16 w-full pt-3">
       <Link
@@ -44,7 +45,7 @@ const Nav: FC<NavProps> = ({}) => {
 
       {/* Desktop Navigation */}
       <div className="hidden sm:flex">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link
               href="/create-prompt"
@@ -78,7 +79,7 @@ const Nav: FC<NavProps> = ({}) => {
                 <button
                   type="button"
                   key={provider.name}
-                  onClick={() => singIn(provider.id)}
+                  onClick={() => signIn(provider.id)}
                   className="black_btn"
                 >
                   Sign In
@@ -90,7 +91,7 @@ const Nav: FC<NavProps> = ({}) => {
 
       {/* Mobile Navigation */}
       <div className="relative flex sm:hidden">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             <Image
               src="/assets/images/logo.svg"
@@ -139,7 +140,7 @@ const Nav: FC<NavProps> = ({}) => {
                 <button
                   type="button"
                   key={provider.name}
-                  onClick={() => singIn(provider.id)}
+                  onClick={() => signIn(provider.id)}
                   className="black_btn"
                 >
                   Sign In
