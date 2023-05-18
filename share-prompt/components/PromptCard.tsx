@@ -1,8 +1,15 @@
+"use client";
+
 import { FC } from "react";
 
-interface PromptCardProps {}
+import { Prompt } from "@type/Prompt";
 
-const PromptCard: FC<PromptCardProps> = ({}) => {
+interface PromptCardProps {
+  prompt: Prompt;
+  handleTagClick: () => void;
+}
+
+const PromptCard: FC<PromptCardProps> = ({ prompt, handleTagClick }) => {
   return <div>PromptCard</div>;
 };
 

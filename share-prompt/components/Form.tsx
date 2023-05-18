@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import Link from "next/link";
 
-import { Post } from "@type/Post";
+import { Post } from "@type/Prompt";
 
 // import Post from "@types/Post";
 

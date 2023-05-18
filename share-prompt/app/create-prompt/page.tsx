@@ -5,7 +5,7 @@ import React, { FC, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import Form from "@components/Form";
-import { Post } from "@type/Post";
+import { Prompt } from "@type/Prompt";
 import { useSession } from "next-auth/react";
 
 interface CreatePromptProps {}
@@ -15,7 +15,7 @@ const CreatePrompt: FC<CreatePromptProps> = ({}) => {
   const { data: session } = useSession();
 
   const [submitting, setSubmitting] = useState(false);
-  const [post, setPost] = useState<Post>({
+  const [post, setPost] = useState<Prompt>({
     prompt: "",
     tag: "",
   });
