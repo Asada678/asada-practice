@@ -18,7 +18,6 @@ const Nav: FC<NavProps> = ({}) => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    console.log("useEffect:");
     const setUpProviders = async () => {
       const response = await getProviders();
 
@@ -64,7 +63,7 @@ const Nav: FC<NavProps> = ({}) => {
 
             <Link href="/profile">
               <Image
-                src="/assets/images/logo.svg"
+                src={session?.user.image || ""}
                 width={37}
                 height={37}
                 alt="profile"
@@ -94,7 +93,7 @@ const Nav: FC<NavProps> = ({}) => {
         {session?.user ? (
           <div className="flex">
             <Image
-              src="/assets/images/logo.svg"
+              src={session?.user.image || ""}
               width={37}
               height={37}
               alt="profile"
