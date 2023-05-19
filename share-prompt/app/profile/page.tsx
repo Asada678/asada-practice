@@ -13,14 +13,26 @@ interface ProfilePageProps {}
 const ProfilePage: FC<ProfilePageProps> = ({}) => {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const { data: session } = useSession();
-  const handleEdit = () => {};
-  const handleDelete = async () => {};
+  const router = useRouter();
+  const handleEdit = (prompt: Prompt) => {
+    router.push(`/update-prompt?id=${prompt._id}`);
+  };
+  const handleDelete = async (prompt: Prompt) => {
+    const hasConfirmed = confirm("Are you sure you want to delete this prompt?");
 
-  console.log("session:", session);
+    try {
+      await fetch(`/api/prompt/${prompt._id?.toString()}`, { method: "DELETE" });
+
+      const filteredPrompts = prompts.filter((p) => p._id !== prompt._id);
+      setPrompts(filteredPrompts);
+    } catch (error) {
+      console.log("error:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchPrompts = async () => {
-      const response = await fetch(`/api/users/${session?.user.id}/posts`);
+      const response = await fetch(`/api/users/${session?.user.id}/prompts`);
       const data = await response.json();
 
       setPrompts(data);

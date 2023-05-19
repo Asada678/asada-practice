@@ -15,7 +15,7 @@ const CreatePrompt: FC<CreatePromptProps> = ({}) => {
   const { data: session } = useSession();
 
   const [submitting, setSubmitting] = useState(false);
-  const [post, setPost] = useState<Prompt>({
+  const [prompt, setPrompt] = useState<Prompt>({
     prompt: "",
     tag: "",
   });
@@ -28,8 +28,8 @@ const CreatePrompt: FC<CreatePromptProps> = ({}) => {
       const response = await fetch("/api/prompt/new", {
         method: "POST",
         body: JSON.stringify({
-          prompt: post.prompt,
-          tag: post.tag,
+          prompt: prompt.prompt,
+          tag: prompt.tag,
           userId: session?.user.id,
         }),
       });
@@ -47,8 +47,8 @@ const CreatePrompt: FC<CreatePromptProps> = ({}) => {
   return (
     <Form
       type="Create"
-      post={post}
-      setPost={setPost}
+      post={prompt}
+      setPost={setPrompt}
       submitting={submitting}
       onSubmit={createPrompt}
     />

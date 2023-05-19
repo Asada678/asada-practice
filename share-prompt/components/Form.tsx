@@ -7,7 +7,7 @@ import { Post } from "@type/Prompt";
 // import Post from "@types/Post";
 
 interface FormProps {
-  type: "Create";
+  type: "Create" | "Edit";
   post: Post;
   setPost: (post: Post) => void;
   submitting: boolean;
