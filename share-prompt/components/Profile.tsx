@@ -5,11 +5,11 @@ import { Prompt } from "@type/Prompt";
 import PromptCard from "./PromptCard";
 
 interface ProfileProps {
-  name: "My";
+  name: "My" | string;
   desc: string;
   data: Array<Prompt>;
-  handleEdit: (prompt: Prompt) => void;
-  handleDelete: (prompt: Prompt) => void;
+  handleEdit?: (prompt: Prompt) => void;
+  handleDelete?: (prompt: Prompt) => void;
 }
 
 const Profile: FC<ProfileProps> = ({ name, desc, data, handleEdit, handleDelete }) => {
@@ -25,8 +25,8 @@ const Profile: FC<ProfileProps> = ({ name, desc, data, handleEdit, handleDelete 
           <PromptCard
             key={prompt._id}
             prompt={prompt}
-            handleEdit={() => handleEdit(prompt)}
-            handleDelete={() => handleDelete(prompt)}
+            handleEdit={() => handleEdit && handleEdit(prompt)}
+            handleDelete={() => handleDelete && handleDelete(prompt)}
           />
         ))}
       </div>

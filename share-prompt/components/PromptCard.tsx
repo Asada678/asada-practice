@@ -26,7 +26,6 @@ const PromptCard: FC<PromptCardProps> = ({ prompt, handleTagClick, handleEdit, h
     await navigator.clipboard.writeText(prompt.prompt);
     setTimeout(() => setCopiedPrompt(""), 3000);
   };
-  console.log("prompt.creator?.toString() === session?.user.id:", prompt.creator?._id, session?.user.id);
   return (
     <div className="prompt_card">
       <div className="flex items-start justify-between gap-5">
