@@ -3,6 +3,7 @@
 import { FC, useState } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 import { Prompt } from "@type/Prompt";
@@ -25,23 +26,26 @@ const PromptCard: FC<PromptCardProps> = ({ prompt, handleTagClick, handleEdit, h
     await navigator.clipboard.writeText(prompt.prompt);
     setTimeout(() => setCopiedPrompt(""), 3000);
   };
+  console.log("prompt.creator?.toString() === session?.user.id:", prompt.creator?._id, session?.user.id);
   return (
     <div className="prompt_card">
       <div className="flex items-start justify-between gap-5">
-        <div className="flex flex-1 cursor-pointer items-center justify-start gap-3">
-          <Image
-            src={prompt.creator?.image || ""}
-            alt="user image"
-            width={40}
-            height={40}
-            className="rounded-full object-contain"
-          />
+        <Link href={prompt.creator?._id === session?.user.id ? "/profile" : `/profile/${prompt.creator?._id}`}>
+          <div className="flex flex-1 cursor-pointer items-center justify-start gap-3 duration-200 hover:bg-gray-200">
+            <Image
+              src={prompt.creator?.image || ""}
+              alt="user image"
+              width={40}
+              height={40}
+              className="rounded-full object-contain"
+            />
 
-          <div className="flex flex-col">
-            <h3 className="font-satoshi font-semibold text-gray-900">{prompt.creator?.username}</h3>
-            <p className="font-inter text-sm  text-gray-500">{prompt.creator?.email}</p>
+            <div className="flex flex-col">
+              <h3 className="font-satoshi font-semibold text-gray-900">{prompt.creator?.username}</h3>
+              <p className="font-inter text-sm  text-gray-500">{prompt.creator?.email}</p>
+            </div>
           </div>
-        </div>
+        </Link>
         <div
           className="copy_btn"
           onClick={handleCopy}

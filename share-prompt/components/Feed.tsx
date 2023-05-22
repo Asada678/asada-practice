@@ -10,7 +10,7 @@ import PromptCard from "./PromptCard";
 interface FeedProps {}
 interface PromptCardListProps {
   data: Array<Prompt>;
-  handleTagClick: () => void;
+  handleTagClick: (tagName: string) => void;
 }
 
 const PromptCardList: FC<PromptCardListProps> = ({ data, handleTagClick }) => {
@@ -54,6 +54,12 @@ const Feed: FC<FeedProps> = ({}) => {
     );
   };
 
+  const handleTagClick = (tagName: string) => {
+    setSearchText(tagName);
+    const result = filterPrompts(tagName);
+    setSearchResults(result);
+  };
+
   useEffect(() => {
     const fetchPrompts = async () => {
       const response = await fetch("/api/prompt");
@@ -76,17 +82,10 @@ const Feed: FC<FeedProps> = ({}) => {
         />
       </form>
 
-      {searchText ? (
-        <PromptCardList
-          data={searchResult}
-          handleTagClick={() => {}}
-        />
-      ) : (
-        <PromptCardList
-          data={prompts}
-          handleTagClick={() => {}}
-        />
-      )}
+      <PromptCardList
+        data={searchText ? searchResult : prompts}
+        handleTagClick={handleTagClick}
+      />
     </section>
   );
 };
