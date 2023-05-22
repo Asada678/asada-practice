@@ -2,14 +2,12 @@ import { FC } from "react";
 
 import Link from "next/link";
 
-import { Post } from "@type/Prompt";
-
-// import Post from "@types/Post";
+import { Prompt } from "@type/Prompt";
 
 interface FormProps {
   type: "Create" | "Edit";
-  post: Post;
-  setPost: (post: Post) => void;
+  post: Prompt;
+  setPost: (post: Prompt) => void;
   submitting: boolean;
   onSubmit: (e: React.FormEvent) => void;
 }

@@ -2,7 +2,6 @@
 
 import { FC } from "react";
 
-import { DefaultSession } from "next-auth";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 

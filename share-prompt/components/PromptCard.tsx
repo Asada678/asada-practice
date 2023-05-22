@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { Prompt } from "@type/Prompt";
 import { useSession } from "next-auth/react";
@@ -19,7 +19,6 @@ interface PromptCardProps {
 const PromptCard: FC<PromptCardProps> = ({ prompt, handleTagClick, handleEdit, handleDelete }) => {
   const { data: session } = useSession();
   const pathName = usePathname();
-  const router = useRouter();
   const [copiedPrompt, setCopiedPrompt] = useState("");
   const handleCopy = async () => {
     setCopiedPrompt(prompt.prompt);

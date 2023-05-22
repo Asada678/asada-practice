@@ -6,14 +6,18 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { getProviders, signIn, signOut, useSession } from "next-auth/react";
+import { BuiltInProviderType } from "next-auth/providers";
+import { ClientSafeProvider, getProviders, LiteralUnion, signIn, signOut, useSession } from "next-auth/react";
 
 interface NavProps {}
 
 const Nav: FC<NavProps> = ({}) => {
   const { data: session } = useSession();
 
-  const [providers, setProviders] = useState(null);
+  const [providers, setProviders] = useState<Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null>(null);
 
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
