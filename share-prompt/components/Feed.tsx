@@ -30,7 +30,29 @@ const PromptCardList: FC<PromptCardListProps> = ({ data, handleTagClick }) => {
 const Feed: FC<FeedProps> = ({}) => {
   const [searchText, setSearchText] = useState("");
   const [prompts, setPrompts] = useState<Prompt[]>([]);
-  const handleSearchChange = () => {};
+  const [searchResult, setSearchResults] = useState<Prompt[]>([]);
+  const [searchTimeout, setSearchTimeout] = useState<string | number | NodeJS.Timeout | undefined>("");
+
+  const filterPrompts = (searchText: string): Prompt[] => {
+    const regex = new RegExp(searchText, "i");
+
+    return prompts.filter((p) => regex.test(p.creator?.username || "") || regex.test(p.tag) || regex.test(p.prompt));
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent) => {
+    const eventTarget = e.target as HTMLInputElement;
+    const value = eventTarget.value;
+
+    clearTimeout(searchTimeout);
+    setSearchText(value);
+
+    setSearchTimeout(
+      window.setTimeout(() => {
+        const result = filterPrompts(value);
+        setSearchResults(result);
+      }, 500)
+    );
+  };
 
   useEffect(() => {
     const fetchPrompts = async () => {
@@ -54,10 +76,17 @@ const Feed: FC<FeedProps> = ({}) => {
         />
       </form>
 
-      <PromptCardList
-        data={prompts}
-        handleTagClick={() => {}}
-      />
+      {searchText ? (
+        <PromptCardList
+          data={searchResult}
+          handleTagClick={() => {}}
+        />
+      ) : (
+        <PromptCardList
+          data={prompts}
+          handleTagClick={() => {}}
+        />
+      )}
     </section>
   );
 };
