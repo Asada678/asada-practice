@@ -45,7 +45,7 @@ const ProfilePage: FC<ProfilePageProps> = ({}) => {
     if (session?.user.id) {
       fetchPrompts();
     }
-  }, []);
+  }, [session?.user.id]);
 
   return (
     <Profile
