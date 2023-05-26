@@ -18,10 +18,14 @@ const ProfilePage: FC<ProfilePageProps> = ({}) => {
     router.push(`/update-prompt?id=${prompt._id}`);
   };
   const handleDelete = async (prompt: Prompt) => {
-    const hasConfirmed = confirm("Are you sure you want to delete this prompt?");
+    const hasConfirmed = confirm(
+      "Are you sure you want to delete this prompt?"
+    );
 
     try {
-      await fetch(`/api/prompt/${prompt._id?.toString()}`, { method: "DELETE" });
+      await fetch(`/api/prompt/${prompt._id?.toString()}`, {
+        method: "DELETE",
+      });
 
       const filteredPrompts = prompts.filter((p) => p._id !== prompt._id);
       setPrompts(filteredPrompts);
